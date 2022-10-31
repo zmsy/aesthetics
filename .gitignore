@@ -4,3 +4,4 @@ dist
 *.js.map
 *.d.ts
 results.json
+frontend/.DS_Store
