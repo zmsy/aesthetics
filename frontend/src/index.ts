@@ -13,6 +13,9 @@ type IndexedAesthetic = { idx: number; numLinks: number } & Aesthetic;
 type GraphNode = { id: number; label: string; value: number };
 type GraphEdge = { from: number; to: number };
 
+// Loop through and count all connections between the graph nodes.
+// const linkCounts: Record<number, number> =
+
 // create a dataset where each aesthetic has an index.
 const graphDataLookup: Record<string, IndexedAesthetic> = Object.fromEntries(
   graphData.map((g, idx) => [g.url, { ...g, idx, numLinks: 0 }])
@@ -47,7 +50,22 @@ const nodes: Array<GraphNode> = Object.values(graphDataLookup).map((a) => {
   };
 });
 
-const data = { nodes, edges: [] };
+// now let's apply a low-pass filter on the edges/nodes to get rid of
+// any w/ less than _n_ value
+const MINIMUM_VALUE = 15;
+const lowValueNodes = new Set<number>(
+  nodes.filter((x) => x.value <= MINIMUM_VALUE).map((x) => x.id)
+);
+
+const data = {
+  nodes: nodes.filter((n) => !lowValueNodes.has(n.id)),
+  edges: edges.filter(
+    (e) => !lowValueNodes.has(e.to) && !lowValueNodes.has(e.from)
+  ),
+};
+
+console.log(data);
+
 const options: Options = {
   nodes: {
     shape: "dot",
@@ -57,6 +75,9 @@ const options: Options = {
         max: 82,
       },
     },
+  },
+  physics: {
+    enabled: true,
   },
   layout: {
     improvedLayout: false,
