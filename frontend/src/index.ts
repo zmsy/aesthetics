@@ -10,7 +10,7 @@ import { Network, Options } from "vis";
 const graphData = results as unknown as Array<Aesthetic>;
 
 type IndexedAesthetic = { idx: number } & Aesthetic;
-type GraphNode = { idx: number; label: string; value: number };
+type GraphNode = { id: number; label: string; value: number };
 type GraphEdge = { from: number; to: number };
 
 // create a dataset where each aesthetic has an index.
@@ -21,7 +21,7 @@ const graphDataLookup: Record<string, IndexedAesthetic> = Object.fromEntries(
 // now use that to create nodes and edges.
 const nodes: Array<GraphNode> = Object.values(graphDataLookup).map((a) => {
   return {
-    idx: a.idx,
+    id: a.idx,
     label: a.name,
     value: a.numPictures,
   };
@@ -43,18 +43,6 @@ const data = { nodes, edges };
 const options: Options = {
   nodes: {
     shape: "dot",
-    scaling: {
-      customScalingFunction: function (
-        min: number,
-        max: number,
-        total: number,
-        value: number
-      ) {
-        return Math.max(value, 1) / total;
-      },
-      min: 1,
-      max: 154,
-    },
   },
   layout: {
     improvedLayout: false,
