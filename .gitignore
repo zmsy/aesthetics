@@ -5,3 +5,4 @@ dist
 *.d.ts
 results.json
 frontend/.DS_Store
+.DS_Store

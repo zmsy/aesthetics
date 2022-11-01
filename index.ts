@@ -18,7 +18,8 @@ const fetchAllAestheticData = async () => {
   const aestheticsResults: Array<Aesthetic> = [];
   for (const a of result) {
     console.log(`GET "${a.name}": ${a.url}`);
-    await setTimeout(1000);
+    // wait a little so we don't overload it
+    await setTimeout(300);
     try {
       const aestheticResult = await getAesthetic(a);
       aestheticsResults.push(aestheticResult);

@@ -44,7 +44,37 @@ const knownBadUrls = new Set<string>([
   // random other pages
   "\n\t\t\t\t\t\t\t\t\t\t\tHistory\t\t\t\t\t\t\t\t\t\t",
   "\n\t\t\t\t\t\t\t\t\t\t\tTalk (2)\t\t\t\t\t\t\t\t\t\t",
+  "\n\t\t\t\t\t\tLocal Sitemap\t\t\t\t\t",
 ]);
+
+/** Pages that are known to be missing from the list. */
+const knownMissingPages: Array<AestheticLink> = [
+  { name: "Vintage", url: "https://aesthetics.fandom.com/wiki/Vintage" },
+  {
+    name: "2014-era Tumblr",
+    url: "https://aesthetics.fandom.com/wiki/2014-era_tumblr",
+  },
+  { name: "Anime", url: "https://aesthetics.fandom.com/wiki/Anime" },
+  { name: "Black", url: "https://aesthetics.fandom.com/wiki/Black" },
+  {
+    name: "Cryptkeepercore",
+    url: "https://aesthetics.fandom.com/wiki/Cryptkeepercore",
+  },
+  { name: "Glitch", url: "https://aesthetics.fandom.com/wiki/Glitch" },
+  {
+    name: "Milleniwave",
+    url: "https://aesthetics.fandom.com/wiki/Milleniwave",
+  },
+  {
+    name: "Natural Philosophy",
+    url: "https://aesthetics.fandom.com/wiki/Natural_Philosophy",
+  },
+  { name: "Nu-Metal", url: "https://aesthetics.fandom.com/wiki/Nu-Metal" },
+  { name: "Pale", url: "https://aesthetics.fandom.com/wiki/Pale" },
+  { name: "Poolcore", url: "https://aesthetics.fandom.com/wiki/Poolcore" },
+  { name: "Rock", url: "https://aesthetics.fandom.com/wiki/Rock" },
+  { name: "Vintage", url: "https://aesthetics.fandom.com/wiki/Vintage" },
+];
 
 /**
  *
@@ -69,7 +99,7 @@ export const getAestheticLinks = async (): Promise<Array<AestheticLink>> => {
     };
   });
 
-  return aestheticLinks;
+  return aestheticLinks.concat(knownMissingPages);
 };
 
 /**
